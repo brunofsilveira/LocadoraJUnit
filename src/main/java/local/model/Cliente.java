@@ -1,9 +1,9 @@
 package local.model;
 
 import local.exception.ClienteException;
-import org.assertj.core.internal.bytebuddy.utility.RandomString;
+//import org.assertj.core.internal.bytebuddy.utility.RandomString;
 
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.Size;
 
 public class Cliente {
 
@@ -17,25 +17,29 @@ public class Cliente {
 	public Cliente(String nome) {
 		this.nome = nome;
 	}
-
-	public String getNome() {
+         
+        public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+           
+        
+        public void setNome(String nome) {
 		if(nome==null){
-			throw new ClienteException("Nome não é um campo obrigatório");
+                     //TODO: O nome não pode ser nulo.
+			throw new ClienteException("Nome é um campo obrigatório");
 		}
-		if (nome.length()<=4 && nome.length()<55){
+                //TODO: nome deve possuir entre 4 e 55 caracteres (inclusive).
+		if (nome.length()<4 && nome.length()>56){
 			throw new ClienteException("O nome do cliente deve possuir entre 4 e 55 caracteres");
 		}
 		if(!nome.matches("[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃçÇ ]+")){
-			throw new ClienteException("Números e símbolos não são permitidos");
+			throw new ClienteException("Nomes não devem possuir símbolos ou números");
 		}
 		if(!nome.contains(" ")){
-			throw new ClienteException("É necessário adicionar um sobrenome");
-		}
-		this.nome = nome;
+			throw new ClienteException("O nome do cadastro deve possuir pelo menos 2 nomes");
+		}		
+                this.nome = nome;
 	}
 
 	@Override
